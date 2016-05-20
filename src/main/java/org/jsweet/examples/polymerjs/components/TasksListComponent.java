@@ -55,6 +55,8 @@ public class TasksListComponent extends Base {
 	}
 
 	public void addTask() {
+		console.log("add task: " + latestTaskName);
+
 		// Store the new task as not completed
 		localStorage.setItem(this.latestTaskName, "no");
 
@@ -72,16 +74,20 @@ public class TasksListComponent extends Base {
 	public void toggleTask(PaperItemEvent<Task> event) {
 		// Get the name of the task
 		String taskName = event.model.item.taskName;
+		console.log("toggle task: " + taskName);
 
 		// Convert true/false to yes/no
-		if (event.model.item.isComplete)
+		if (event.model.item.isComplete) {
 			localStorage.setItem(taskName, "yes");
-		else
+		} else {
 			localStorage.setItem(taskName, "no");
+		}
 	}
 
 	public void deleteTask(PaperItemEvent<Task> event) {
 		String taskName = event.model.item.taskName;
+		console.log("remove task: " + taskName);
+		
 		localStorage.removeItem(taskName);
 
 		// Update the list of tasks
@@ -89,11 +95,14 @@ public class TasksListComponent extends Base {
 	}
 
 	public void updateTasks() {
+		console.log("refresh tasks");
+		
 		// Empty the array
 		this.splice("tasks", 0, tasks.length);
 
 		// Add items from localStorage
 		for (String savedTaskName : localStorage) {
+			console.log("restore task: " + savedTaskName);
 			Task task = new Task() {
 				{
 					taskName = savedTaskName;
