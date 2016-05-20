@@ -53,6 +53,11 @@ public class TasksListComponent extends Base {
 		PaperDialog dialog = this.findInnerElement("addTaskDialog");
 		dialog.open();
 	}
+	
+	@Override
+	public void attached() {
+		updateTasks();
+	}
 
 	public void addTask() {
 		console.log("add task: " + latestTaskName);
@@ -101,7 +106,7 @@ public class TasksListComponent extends Base {
 		this.splice("tasks", 0, tasks.length);
 
 		// Add items from localStorage
-		for (String savedTaskName : localStorage) {
+		for (String savedTaskName : jsweet.lang.Object.keys(localStorage)) {
 			console.log("restore task: " + savedTaskName);
 			Task task = new Task() {
 				{
