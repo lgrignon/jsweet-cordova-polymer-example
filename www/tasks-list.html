@@ -1,0 +1,60 @@
+<link rel="import" href="js/lib/polymer/polymer.html"/>
+ 
+<link rel="import" href="js/lib/paper-toolbar/paper-toolbar.html"/>
+<link rel="import" href="js/lib/paper-button/paper-button.html"/>
+<link rel="import" href="js/lib/paper-fab/paper-fab.html"/>
+<link rel="import" href="js/lib/paper-listbox/paper-listbox.html"/>
+<link rel="import" href="js/lib/paper-item/paper-item.html"/>
+<link rel="import" href="js/lib/paper-checkbox/paper-checkbox.html"/>
+<link rel="import" href="js/lib/paper-icon-button/paper-icon-button.html"/>
+<link rel="import" href="js/lib/paper-input/paper-input.html"/>
+<link rel="import" href="js/lib/paper-dialog/paper-dialog.html"/>
+<link rel="import" href="js/lib/iron-icons/iron-icons.html"/>
+
+<dom-module id="tasks-list">
+	<template>
+		<!-- Create a toolbar/actionbar -->
+		<paper-toolbar>
+			<div class="title"> My Tasks </div>
+		</paper-toolbar>
+ 
+		<div>
+			<!-- Create a list of tasks -->
+			<paper-listbox>
+				<template is="dom-repeat" items="{{ tasks }}">
+					<!-- Create an individual task -->
+					<paper-item>
+						<paper-checkbox checked="{{ item.isComplete }}"
+							class="flex-11 taskBox" on-change="toggleTask">
+								{{ item.taskName }}
+						</paper-checkbox>							
+						<paper-icon-button
+							icon="delete"
+							class="flex-1"
+							style="color: gray"
+							on-click="deleteTask">
+						</paper-icon-button>					
+					</paper-item>
+				</template>
+			</paper-listbox>
+ 
+			<!-- Create a floating action button -->
+			<paper-fab icon="add"
+						style="position:absolute; bottom: 30px; right:24px"
+						on-click="showAddTaskDialog">
+			</paper-fab>
+ 
+			<!-- Create a modal dialog -->
+			<paper-dialog id="addTaskDialog" modal>
+				<paper-input label="What do you have to do?" value="{{ latestTaskName }}">
+				</paper-input>
+				<div class="buttons">
+					<paper-button dialog-dismiss>Cancel</paper-button>
+					<paper-button on-click="addTask">Add</paper-button>
+				</div>
+			</paper-dialog>
+		</div>
+	</template>
+	
+	<script src="js/app/org/jsweet/examples/polymerjs/components/TasksListComponent.js"></script>
+</dom-module>
