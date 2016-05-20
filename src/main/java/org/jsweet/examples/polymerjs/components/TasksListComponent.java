@@ -41,7 +41,7 @@ public class TasksListComponent extends Base {
 		console.log("created " + is);
 	}
 
-	public static void main() {
+	static {
 		createElement((Function<Object, TasksListComponent>) function(TasksListComponent.class));
 		console.log("registered task list component");
 	}
